@@ -1,5 +1,5 @@
 #pragma once
-#ifdef(GDAL_FOUND)
+#ifdef GDAL_FOUND 
 #include <string>
 #include "Classifier.h"
 

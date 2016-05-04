@@ -1,4 +1,4 @@
-#ifdef(GDAL_FOUND)
+#ifdef GDAL_FOUND
 #include "Project.h"
 #include <iostream>
 #include <gdal_priv.h>
