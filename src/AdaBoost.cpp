@@ -124,7 +124,7 @@ AdaBoost AdaBoost::run(const DataSource& datasource, const DataSource& datasourc
 		for (unsigned int g = 0; g < generations; g++)
 		{
 			std::vector<std::tuple<unsigned int, float>> results;
-			#pragma omp parallel
+			#pragma omp parallel num_threads(4)
 			{
 				std::vector<std::tuple<unsigned int, float>> results_private;
 				#pragma omp for nowait

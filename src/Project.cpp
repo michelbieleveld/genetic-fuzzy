@@ -1,3 +1,4 @@
+#ifdef(GDAL_FOUND)
 #include "Project.h"
 #include <iostream>
 #include <gdal_priv.h>
@@ -146,3 +147,4 @@ void Project::MakeProjection(std::string fileNameIn, std::string fileNameOut, Cl
 	CPLFree(pafWriteLine);
 	
 }
+#endif

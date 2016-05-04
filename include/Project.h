@@ -1,4 +1,5 @@
 #pragma once
+#ifdef(GDAL_FOUND)
 #include <string>
 #include "Classifier.h"
 
@@ -11,4 +12,4 @@ public:
 	static void MakeProjection(std::string fileNameIn, std::string fileNameOut, Classifier& classifier);
 
 };
-
+#endif

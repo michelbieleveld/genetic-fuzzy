@@ -109,7 +109,7 @@ std::vector<Individual> Individual::initializeGeneration_datasource(int size, in
 	std::vector<Individual> gen;
 	
 
-	#pragma omp parallel
+	#pragma omp parallel num_threads(4)
 	{
 		std::vector<Individual> gen_private;
 		RandomGenerator rnd(datasource.nindependents);
@@ -454,7 +454,7 @@ std::vector<Individual> Individual::nextGeneration(const DataSource& datasource,
 	std::vector<Individual> ngen;
 	ngen.reserve(gen.size());
 	
-	#pragma omp parallel
+	#pragma omp parallel num_threads(4)
 	{
 		std::vector<Individual> ngen_private;
 		RandomGenerator rnd(datasource.nindependents);

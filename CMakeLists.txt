@@ -1,9 +1,14 @@
 cmake_minimum_required (VERSION 2.6)
 project (Thesis)
 set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
+set(LIBS ${LIBS})
 find_package(GDAL)
-include_directories(${GDAL_INCLUDE_DIRS})
+if (GDAL_FOUND)
+	include_directories(${GDAL_INCLUDE_DIRS})
+	set(LIBS ${LIBS} ${GDAL_INCLUDE_DIRS})
+endif(GDAL_FOUND)
 
 find_package(OpenMP)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
@@ -32,5 +37,5 @@ file(GLOB SOURCES "src/*.cpp")
 # add the executable
 add_executable(Thesis ${SOURCES})
 set_property(TARGET Thesis PROPERTY CXX_STANDARD 14)
-TARGET_LINK_LIBRARIES( Thesis ${GDAL_LIBRARIES} ${MPI_LIBRARIES} -lstdc++fs)
+TARGET_LINK_LIBRARIES( Thesis ${LIBS} ${MPI_LIBRARIES} -lstdc++fs)
 
