@@ -8,6 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <cereal/archives/json.hpp>
+#include <cereal/archives/binary.hpp>
 #include <string>
 #ifdef OPENMP_FOUND
 #include <omp.h>
@@ -480,11 +481,7 @@ std::vector<Individual> Individual::nextGeneration(const DataSource& datasource,
 		ngen.push_back(gen[std::get<0>(results[i])]);
 
 	
-	const int migrationMax = 3;
-	for (unsigned int i=0; i< migrationMax; i++)
-	{
-		ngen[i] = migration(gen[std::get<0>(results[i])], mpi_comm);
-	}
+	ngen[0] = migration(gen[std::get<0>(results[0])], mpi_comm);
 	
 	return ngen;
 }
@@ -498,7 +495,7 @@ Individual Individual::migration(const Individual& individual, MPI_Comm& mpi_com
 
 	std::stringstream ss;
 	{
-		cereal::JSONOutputArchive oarchive(ss);
+		cereal::BinaryOutputArchive oarchive(ss);
 		oarchive(cereal::make_nvp("Individual", individual));
 	}
 	std::string dss = ss.str(); 
@@ -513,7 +510,7 @@ Individual Individual::migration(const Individual& individual, MPI_Comm& mpi_com
 
 	{
 		std::stringstream st(std::string(receivebuffer.begin(), receivebuffer.end()));
-		cereal::JSONInputArchive iarchive(st);
+		cereal::BinaryInputArchive iarchive(st);
 		iarchive(received);
 	}
 	return received;
